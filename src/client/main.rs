@@ -1,36 +1,16 @@
 #[path = "../common.rs"]
 mod common;
 mod math;
-
-use math::{Vec2D, ZERO, joystick_normalize_and_deadband};
+mod player;
 
 use sdl2::{
     event::Event, keyboard::Keycode, pixels::Color, render::Canvas, video::Window,
-    gfx::{
-        primitives::DrawRenderer, framerate::FPSManager
-    }, joystick::Joystick
+    gfx::framerate::FPSManager, joystick::Joystick
 };
 
-struct Player {
-    name: String,
-    position: Vec2D,
-    velocity: Vec2D, // per tick ig
-}
+use math::{Vec2D, joystick_normalize_and_deadband};
 
-impl Player {
-
-    fn new(name: String, position: Vec2D) -> Player {
-        Player { name, position, velocity: ZERO }
-    }
-
-    fn tick_move(&mut self) {
-        self.position = self.position + self.velocity;
-    }
-
-    fn draw(&self, renderer: &mut Canvas<Window>) {
-        renderer.filled_circle(self.position.x as i16, self.position.y as i16, 20, Color::WHITE).unwrap();
-    }
-}
+use player::Player;
 
 /*
  * draw the screen (called every frame)
