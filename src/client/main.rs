@@ -5,7 +5,14 @@ use sdl2::{event::Event, keyboard::Keycode, pixels::Color, rect::Rect};
 
 struct Player {
     name: String,
-    pos: Rect,
+    position: (i32, i32)
+}
+
+impl Player {
+
+    fn new(name: String, position: (i32, i32)) -> Player {
+        Player { name, position }
+    }
 }
 
 fn main() -> Result<(), String> {
