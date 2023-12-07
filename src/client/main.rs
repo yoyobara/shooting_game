@@ -4,23 +4,12 @@ mod math;
 mod player;
 
 use sdl2::{
-    event::Event, keyboard::Keycode, pixels::Color, render::Canvas, video::Window,
+    event::Event, keyboard::Keycode,
     gfx::framerate::FPSManager, joystick::Joystick
 };
 
 use math::{Vec2D, joystick_normalize_and_deadband};
-
 use player::Player;
-
-/*
- * draw the screen (called every frame)
- */
-fn draw(renderer: &mut Canvas<Window>, p: &Player) {
-    renderer.set_draw_color(Color::BLACK);
-    renderer.clear();
-
-    p.draw(renderer);
-}
 
 /*
  * updates the game
@@ -58,7 +47,6 @@ fn main() -> Result<(), String> {
             }
         }
         update(&mut player, &joystick);
-        draw(&mut renderer, &player);
         renderer.present();
         fps_manager.delay();
     }
