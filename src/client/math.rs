@@ -12,6 +12,13 @@ impl Vec2D {
     pub const fn new(x: f32, y: f32) -> Self {
         Vec2D {x, y}
     }
+
+    pub fn from_polar(magnitude: f32, angle: f32) {
+        // creates a new vector using polar representation.
+        // angle is in radians
+        
+        Vec2D{ x: angle.cos(), y: angle.sin() } * magnitude
+    }
 }
 
 impl ops::Add for Vec2D {
@@ -46,7 +53,7 @@ impl ops::Sub for Vec2D {
 
 pub const ZERO: Vec2D = Vec2D::new(0.0, 0.0);
 
-pub fn joystick_normalize_and_deadband(joystick_vec: Vec2D, max_velocity: f32) -> Vec2D {
+pub fn movement_normalize_and_deadband(joystick_vec: Vec2D, max_velocity: f32) -> Vec2D {
     // deadbands a joystick movement input 
     const DEADBAND_RATIO: f32 = 0.15;
     let deadband_threshold: f32 = max_velocity * DEADBAND_RATIO;
@@ -60,4 +67,12 @@ pub fn joystick_normalize_and_deadband(joystick_vec: Vec2D, max_velocity: f32) -
         velocity_vec.y = 0.0;
     }
     velocity_vec
+}
+
+pub fn aim_to_angle(joystick_vec: Vec2D) -> Vec2D {
+    // controller aim input to normalized vector (deadband also)
+    const DEADBAND_RATIO: f32 = 0.15;
+    let deadband_threshold = i16::MAX as f32 * DEADBAND_RATIO;
+
+    let angle = 
 }

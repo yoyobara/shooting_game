@@ -8,7 +8,7 @@ use sdl2::{
     gfx::framerate::FPSManager, joystick::Joystick
 };
 
-use math::{Vec2D, joystick_normalize_and_deadband};
+use math::{Vec2D, movement_normalize_and_deadband};
 use player::Player;
 
 /*
@@ -16,7 +16,7 @@ use player::Player;
  */
 fn update(p: &mut Player, joystick: &Joystick) {
     let joystick_vec: Vec2D = Vec2D::new(joystick.axis(0).unwrap() as f32, joystick.axis(1).unwrap() as f32);
-    p.velocity = joystick_normalize_and_deadband(joystick_vec, 5.0);
+    p.velocity = movement_normalize_and_deadband(joystick_vec, 5.0);
 
     p.tick_move();
 }
